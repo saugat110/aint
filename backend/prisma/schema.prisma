@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model InventoryItem {
+  id              Int              @id @default(autoincrement())
+  name            String
+  description     String
+  totalQuantity   Int
+  available       Int
+  inUse           Int
+  category        String?
+  assignments     AssignmentRecord[]
+  createdAt       DateTime         @default(now())
+}
+
+model Agent {
+  id           Int               @id @default(autoincrement())
+  name         String @unique
+  contactInfo  String?
+  recordOrigin String
+  assignments  AssignmentRecord[]
+}
+
+model AssignmentRecord {
+  id               Int           @id @default(autoincrement())
+  inventoryItem    InventoryItem @relation(fields: [inventoryItemId], references: [id])
+  inventoryItemId  Int
+  agent            Agent?        @relation(fields: [agentId], references: [id])
+  agentId          Int?
+  agentName        String
+  quantity         Int
+  status           String        // 'assigned' or 'returned'
+  assignmentDate   DateTime      @default(now())
+  remarks          String?
+}
