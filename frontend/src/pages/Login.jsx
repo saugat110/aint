@@ -15,7 +15,7 @@ export default function Login() {
         password,
       });
       localStorage.setItem('agent', JSON.stringify(res.data.user));
-      navigate('/');
+      navigate('/dashboard');
     } catch (err) {
       alert(err.response?.data?.message || 'Login failed');
     }

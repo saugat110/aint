@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser'
 import { errorHandler } from './middleware/errorHandler.js'
 import session from 'express-session'
 import prisma from './utils/prisma.js'
+import authRoutes from './routes/authRoutes.js'
 
 
 const app = express();
@@ -28,7 +29,7 @@ app.use(session({
 
 app.use(cookieParser());
 
-// app.use('/api', testRoutes);
+app.use('/api/auth/', authRoutes);
 
 
 // const router = express.Router();

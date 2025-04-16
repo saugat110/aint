@@ -28,8 +28,9 @@ model InventoryItem {
 
 model Agent {
   id           Int               @id @default(autoincrement())
-  name         String @unique
-  contactInfo  String?
+  name         String 
+  email  String @unique
+  password String
   recordOrigin String
   assignments  AssignmentRecord[]
 }

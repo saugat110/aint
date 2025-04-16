@@ -11,8 +11,9 @@ export default function Register() {
     try {
       const res = await axios.post('http://localhost:3000/api/auth/register', form);
       localStorage.setItem('agent', JSON.stringify(res.data.user));
-      navigate('/');
+      navigate('/dashboard');
     } catch (err) {
+      console.log(err);
       alert(err.response?.data?.message || 'Registration failed');
     }
   };
@@ -46,7 +47,7 @@ export default function Register() {
           Register
         </button>
         <p className="mt-3 text-center">
-          Already have an account? <Link to="/login" className="text-blue-600">Login</Link>
+          Already have an account? <Link to="/" className="text-blue-600">Login</Link>
         </p>
       </div>
     </div>
