@@ -58,3 +58,26 @@
   overflow-y: auto;
 }
 
+.logout-link {
+  margin-top: auto;
+  width: 100%;
+}
+
+.logout-link button {
+  background: none;
+  border: none;
+  color: white;
+  font-weight: 500;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.logout-link button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+
