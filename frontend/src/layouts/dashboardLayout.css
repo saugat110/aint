@@ -59,11 +59,14 @@
 }
 
 .logout-link {
-  margin-top: auto;
+  /* margin-top: auto; */
   width: 100%;
 }
 
 .logout-link button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   background: none;
   border: none;
   color: white;
@@ -73,11 +76,18 @@
   width: 100%;
   cursor: pointer;
   transition: background 0.3s ease;
+  border-radius: 0.5rem;
 }
 
 .logout-link button:hover {
   background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 0.5rem;
 }
+
+.logout-link .icon {
+  font-size: 1.2rem;
+}
+
 
 
 
