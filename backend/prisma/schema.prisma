@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
@@ -14,36 +8,50 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model InventoryItem {
-  id              Int              @id @default(autoincrement())
-  name            String
-  description     String
-  totalQuantity   Int
-  available       Int
-  inUse           Int
-  category        String?
-  assignments     AssignmentRecord[]
-  createdAt       DateTime         @default(now())
+model Item {
+  id            Int           @id @default(autoincrement())
+  name          String
+  description   String
+  totalQuantity Int
+  available     Int
+  inUse         Int
+  category      String?
+  assignments   Assignment[]
+  transactions  Transaction[]
+  createdAt     DateTime      @default(now())
 }
 
 model Agent {
-  id           Int               @id @default(autoincrement())
-  name         String 
-  email  String @unique
-  password String
-  recordOrigin String
-  assignments  AssignmentRecord[]
+  id           Int           @id @default(autoincrement())
+  name         String
+  email        String?        @unique
+  password     String?
+  recordOrigin String?
+  assignments  Assignment[]
+  transactions Transaction[]
 }
 
-model AssignmentRecord {
-  id               Int           @id @default(autoincrement())
-  inventoryItem    InventoryItem @relation(fields: [inventoryItemId], references: [id])
-  inventoryItemId  Int
-  agent            Agent?        @relation(fields: [agentId], references: [id])
-  agentId          Int?
-  agentName        String
-  quantity         Int
-  status           String        // 'assigned' or 'returned'
-  assignmentDate   DateTime      @default(now())
-  remarks          String?
+model Assignment {
+  id             Int      @id @default(autoincrement())
+  Item           Item     @relation(fields: [ItemId], references: [id])
+  ItemId         Int
+  agent          Agent?   @relation(fields: [agentId], references: [id])
+  agentId        Int?
+  agentName      String
+  quantity       Int
+  status         String // 'assigned' or 'returned'
+  assignmentDate DateTime @default(now())
+  remarks        String?
+}
+
+model Transaction {
+  id          Int      @id @default(autoincrement())
+  actionType  String // 'assignment', 'return', 'quantity_update', etc.
+  itemId      Int? // Optional: only relevant for item-related logs
+  item        Item?    @relation(fields: [itemId], references: [id])
+  agentId     Int? // Optional: for assignment-related logs
+  agent       Agent?   @relation(fields: [agentId], references: [id])
+  quantity    Int?
+  performedBy String // Name or email of the user/admin who performed the action
+  timestamp   DateTime @default(now())
 }

@@ -8,6 +8,7 @@ import DashboardHome from './pages/DashboardHome';
 import InventoryPage from './pages/InventoryPage';
 import AssignmentPage from './pages/AssignmentPage';
 import TransactionsPage from './pages/TransactionsPage';
+import ItemAddPage from './pages/ItemAddPage';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
       <Route path="/dashboard" element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
         <Route index element={<DashboardHome />} />
         <Route path="inventory" element={<InventoryPage />} />
+        <Route path="additem" element={<ItemAddPage />} />
         <Route path="assignments" element={<AssignmentPage />} />
         <Route path="transactions" element={<TransactionsPage />} />
       </Route>

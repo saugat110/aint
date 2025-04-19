@@ -5,6 +5,8 @@ import { errorHandler } from './middleware/errorHandler.js'
 import session from 'express-session'
 import prisma from './utils/prisma.js'
 import authRoutes from './routes/authRoutes.js'
+import itemRoutes from './routes/itemRoutes.js'
+import testRoutes from './routes/testRoutes.js'
 
 
 const app = express();
@@ -23,30 +25,15 @@ app.use(session({
   saveUninitialized: false,
   cookie: 
   {
-    secure:true,
+    secure:false,
   }
 }));
 
 app.use(cookieParser());
 
 app.use('/api/auth/', authRoutes);
-
-
-// const router = express.Router();
-// router.route('/test').get(async(req, res) => {
-//   try {
-//     const agent = await prisma.agent.create({
-//       data:{
-//         name: 'Saugat Sthapit',
-//         contactInfo: 'saugat@gmail.com',
-//         recordOrigin: 'manual'
-//       }
-//     });
-//     console.log(agent);
-//   } catch (error) {
-//       console.log(error);
-//   }
-// })
+app.use('/api/item/', itemRoutes);
+app.use('/api/test/', testRoutes);
 
 app.use(errorHandler);
 

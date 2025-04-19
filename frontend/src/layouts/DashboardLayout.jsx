@@ -16,10 +16,11 @@ export default function DashboardLayout() {
   return (
     <div className="dashboard_layout">
       <aside className="menu">
-        <h2 className="logo">AINT</h2>
+        <h2 className="logo ps-5">IMS</h2>
         <nav>
           <NavLink to="/dashboard" end><FiHome className="inline-block mr-2" />Dashboard</NavLink>
           <NavLink to="/dashboard/inventory">  <FiBox className="inline-block mr-2" />Inventory</NavLink>
+          <NavLink to="/dashboard/additem">  <FiBox className="inline-block mr-2" />Add Item</NavLink>
           <NavLink to="/dashboard/assignments">  <FiUsers className="inline-block mr-2" />Assignments</NavLink>
           <NavLink to="/dashboard/transactions">  <FiActivity className="inline-block mr-2" />Transactions</NavLink>
         </nav>
